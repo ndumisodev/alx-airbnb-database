@@ -18,15 +18,18 @@ You can view the full interactive ER diagram here:
 
 > ℹ️ The interactive diagram includes tooltips showing field-level constraints like `unique`, `not null`, and `default`. These details may not appear in the exported image or PDF.
 
+## 📎 Diagram Preview
 
-## 📄 DBML Code 
+![ER Diagram Preview](./first-erd-preview.png)
+
+## 📄 DBML Code
 
 If you’d like to review the raw DBML schema:
 
 <details>
 <summary>Click to expand</summary>
 
-## Airbnb Clone Database Design in DBML
+// Airbnb Clone Database Design in DBML
 
 Table users {
   user_id UUID [primary key]
