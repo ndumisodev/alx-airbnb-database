@@ -16,7 +16,10 @@ Each entity includes relevant fields and constraints, such as UUID primary keys,
 You can view the full interactive ER diagram here:
 👉 [Click to view the ERD on dbdiagram.io][https://dbdiagram.io/d/your-diagram-id-here](https://dbdiagram.io/d/685d5d05f413ba35080b2f2c)
 
+> 💡 Tip: Right-click the link or use Ctrl+Click (or Cmd+Click on Mac) to open it in a new tab.
+
 > ℹ️ The interactive diagram includes tooltips showing field-level constraints like `unique`, `not null`, and `default`. These details may not appear in the exported image or PDF.
+
 
 ## 📎 Diagram Preview
 
