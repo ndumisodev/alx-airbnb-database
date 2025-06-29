@@ -25,6 +25,33 @@ You can view the full interactive ER diagram here:
 
 ![ER Diagram Preview](./first-erd-preview.png)
 
+
+## 🧩 Entities and Relationships Overview
+
+This ERD includes the following entities:
+
+- **User**: Represents guests, hosts, or admins. Uniquely identified by `user_id`. Hosts own properties. Guests make bookings and leave reviews.
+- **Property**: Listings created by hosts. Each property is tied to a host via `host_id`.
+- **Booking**: Represents a reservation made by a guest for a specific property. Includes `start_date`, `end_date`, and `status`.
+- **Payment**: Linked to a booking and records payment details such as `amount`, `method`, and `payment_date`.
+- **Review**: Submitted by a user for a property, including a rating and comment. Each review is tied to a user and a property.
+- **Message**: Represents messages exchanged between users (e.g., guest ↔ host). Includes sender and recipient IDs.
+
+### 🔗 Relationships Summary
+
+| Relationship                       | Type         | Description                                  |
+|-----------------------------------|--------------|----------------------------------------------|
+| `User` 1 ──< `Property`           | One-to-Many  | One host can list many properties            |
+| `User` 1 ──< `Booking`           | One-to-Many  | One guest can make many bookings             |
+| `Property` 1 ──< `Booking`       | One-to-Many  | A property can have many bookings            |
+| `Booking` 1 ──1 `Payment`        | One-to-One   | Each booking has one payment                 |
+| `User` 1 ──< `Review`            | One-to-Many  | One user can write multiple reviews          |
+| `Property` 1 ──< `Review`        | One-to-Many  | One property can have multiple reviews       |
+| `User` 1 ──< `Message` (Sender)  | One-to-Many  | One user can send many messages              |
+| `User` 1 ──< `Message` (Receiver)| One-to-Many  | One user can receive many messages           |
+
+
+
 ## 📄 DBML Code
 
 If you’d like to review the raw DBML schema:
@@ -102,28 +129,3 @@ Ref: reviews.property_id > properties.property_id
 Ref: messages.sender_id > users.user_id
 Ref: messages.recipient_id > users.user_id
 
-
-
-## 🧩 Entities and Relationships Overview
-
-This ERD includes the following entities:
-
-- **User**: Represents guests, hosts, or admins. Uniquely identified by `user_id`. Hosts own properties. Guests make bookings and leave reviews.
-- **Property**: Listings created by hosts. Each property is tied to a host via `host_id`.
-- **Booking**: Represents a reservation made by a guest for a specific property. Includes `start_date`, `end_date`, and `status`.
-- **Payment**: Linked to a booking and records payment details such as `amount`, `method`, and `payment_date`.
-- **Review**: Submitted by a user for a property, including a rating and comment. Each review is tied to a user and a property.
-- **Message**: Represents messages exchanged between users (e.g., guest ↔ host). Includes sender and recipient IDs.
-
-### 🔗 Relationships Summary
-
-| Relationship                       | Type         | Description                                  |
-|-----------------------------------|--------------|----------------------------------------------|
-| `User` 1 ──< `Property`           | One-to-Many  | One host can list many properties            |
-| `User` 1 ──< `Booking`           | One-to-Many  | One guest can make many bookings             |
-| `Property` 1 ──< `Booking`       | One-to-Many  | A property can have many bookings            |
-| `Booking` 1 ──1 `Payment`        | One-to-One   | Each booking has one payment                 |
-| `User` 1 ──< `Review`            | One-to-Many  | One user can write multiple reviews          |
-| `Property` 1 ──< `Review`        | One-to-Many  | One property can have multiple reviews       |
-| `User` 1 ──< `Message` (Sender)  | One-to-Many  | One user can send many messages              |
-| `User` 1 ──< `Message` (Receiver)| One-to-Many  | One user can receive many messages           |
