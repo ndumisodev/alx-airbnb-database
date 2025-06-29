@@ -53,53 +53,105 @@ This ERD includes the following entities:
 
 ---
 
-# 📐 Database Normalization for Airbnb Clone
+# 📐 Database Normalization: Airbnb Clone (3NF)
 
-## 🎯 Objective
-
-The goal of this document is to ensure that the database schema for the Airbnb Clone is normalized to **Third Normal Form (3NF)**. This reduces redundancy, avoids anomalies, and improves data integrity.
-
----
-
-## ✅ Step 1: First Normal Form (1NF)
-
-**Rule**: Eliminate repeating groups; ensure atomicity (each field holds only one value).
-
-### Review:
-- Each table contains only atomic values.
-- No repeating groups or arrays.
-- Primary keys are defined.
-
-✅ **Result**: The schema is already in **1NF**.
+This document explains the normalization process applied to the Airbnb clone database design, aiming to achieve the **Third Normal Form (3NF)**.  
+Normalization is a systematic process of organizing the columns and tables of a relational database to minimize **data redundancy** and improve **data integrity**.
 
 ---
 
-## ✅ Step 2: Second Normal Form (2NF)
+## 🔍 Normalization Principles Review
 
-**Rule**: Must be in 1NF and all non-key attributes must depend on the whole primary key (no partial dependencies).
-
-### Review:
-- All tables use **UUIDs** as primary keys.
-- No table has a composite primary key.
-- All non-key attributes fully depend on the whole primary key of the table.
-
-✅ **Result**: The schema is in **2NF**.
+We will review the database schema against the **first three normal forms**:
 
 ---
 
-## ✅ Step 3: Third Normal Form (3NF)
+### ✅ First Normal Form (1NF)
 
-**Rule**: Must be in 2NF and **no transitive dependencies** (non-key attributes cannot depend on other non-key attributes).
+A table is in **1NF** if:
+- Each column contains **atomic (indivisible)** values.
+- There are **no repeating groups** of columns.
+- Each row is **unique**, identified by a **primary key**.
 
-### Review of Potential Issues:
-- `users`: No transitive dependencies.
-- `properties`: `host_id` is a foreign key; all other attributes depend directly on `property_id`.
-- `bookings`: Attributes like `total_price`, `start_date`, `end_date`, and `status` depend directly on `booking_id`.
-- `payments`: All fields depend directly on `payment_id`.
-- `reviews`: All fields depend on `review_id`.
-- `messages`: No transitive dependency between `message_body`, `sender_id`, `recipient_id`.
+**Review of Current Schema**:
+All tables in the provided DBML schema (`users`, `properties`, `bookings`, `payments`, `reviews`, `messages`) **adhere to 1NF**:
+- All attributes are **atomic**.
+- There are no repeating columns or multi-value fields.
+- Each table has a clearly defined **UUID primary key**.
 
-✅ **Result**: The schema is in **3NF**. No transitive dependencies were found.
+**Conclusion**: The database design satisfies **1NF**.
+
+---
+
+### ✅ Second Normal Form (2NF)
+
+A table is in **2NF** if:
+- It is already in **1NF**.
+- All **non-key attributes** are **fully functionally dependent** on the **entire primary key**.
+
+**Review of Current Schema**:
+- All tables use **single-attribute primary keys**.
+- There are **no composite primary keys**, and thus no risk of partial dependencies.
+
+**Conclusion**: The database design satisfies **2NF**.
+
+---
+
+### ✅ Third Normal Form (3NF)
+
+A table is in 3NF if:
+
+- It is in 2NF.  
+- There are no transitive dependencies. A transitive dependency occurs when a non-key attribute is functionally dependent on another non-key attribute (which is, in turn, dependent on the primary key). In simple terms, no non-key attribute should determine the value of another non-key attribute.
+
+**Review of Current Schema**:  
+We examine each table for any transitive dependencies:
+
+**users Table**:
+- `user_id` (PK) determines `first_name`, `last_name`, `email`, `password_hash`, `phone_number`, `role`, `created_at`.  
+- No non-key attribute determines another non-key attribute.  
+**Status: 3NF Compliant.**
+
+**properties Table**:
+- `property_id` (PK) determines `host_id`, `name`, `description`, `location`, `pricepernight`, `created_at`, `updated_at`.  
+- `host_id` is a foreign key but does not introduce a transitive dependency.  
+**Status: 3NF Compliant.**
+
+**bookings Table**:
+- `booking_id` (PK) determines `property_id`, `user_id`, `start_date`, `end_date`, `total_price`, `status`, `created_at`.  
+- All non-key attributes are directly dependent on `booking_id`.  
+**Status: 3NF Compliant.**
+
+**payments Table**:
+- `payment_id` (PK) determines `booking_id`, `amount`, `payment_date`, `payment_method`.  
+- All non-key attributes are directly dependent on `payment_id`.  
+**Status: 3NF Compliant.**
+
+**reviews Table**:
+- `review_id` (PK) determines `property_id`, `user_id`, `rating`, `comment`, `created_at`.  
+- All non-key attributes are directly dependent on `review_id`.  
+**Status: 3NF Compliant.**
+
+**messages Table**:
+- `message_id` (PK) determines `sender_id`, `recipient_id`, `message_body`, `sent_at`.  
+- All non-key attributes are directly dependent on `message_id`.  
+**Status: 3NF Compliant.**
+
+---
+
+## 🛠️ Normalization Steps Taken
+
+Upon reviewing the provided DBML schema, it is evident that the database design already adheres to the **Third Normal Form (3NF)**.  
+Therefore, no decomposition steps were required. The design is well-structured, minimizing redundancy and promoting data integrity.
+
+This implies that the initial design was carefully crafted, considering the principles of normalization from the outset.
+
+---
+
+## ✅ Final Verdict
+
+The Airbnb Clone database design meets all requirements for **Third Normal Form (3NF)**.  
+It is optimized for consistency, clarity, and efficient querying — ready for implementation in a relational database system.
 
 ---
 
