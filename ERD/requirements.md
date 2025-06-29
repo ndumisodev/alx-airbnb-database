@@ -51,6 +51,80 @@ This ERD includes the following entities:
 | `User` 1 ──< `Message` (Receiver)| One-to-Many  | One user can receive many messages           |
 
 
+---
+
+# 📐 Database Normalization for Airbnb Clone
+
+## 🎯 Objective
+
+The goal of this document is to ensure that the database schema for the Airbnb Clone is normalized to **Third Normal Form (3NF)**. This reduces redundancy, avoids anomalies, and improves data integrity.
+
+---
+
+## ✅ Step 1: First Normal Form (1NF)
+
+**Rule**: Eliminate repeating groups; ensure atomicity (each field holds only one value).
+
+### Review:
+- Each table contains only atomic values.
+- No repeating groups or arrays.
+- Primary keys are defined.
+
+✅ **Result**: The schema is already in **1NF**.
+
+---
+
+## ✅ Step 2: Second Normal Form (2NF)
+
+**Rule**: Must be in 1NF and all non-key attributes must depend on the whole primary key (no partial dependencies).
+
+### Review:
+- All tables use **UUIDs** as primary keys.
+- No table has a composite primary key.
+- All non-key attributes fully depend on the whole primary key of the table.
+
+✅ **Result**: The schema is in **2NF**.
+
+---
+
+## ✅ Step 3: Third Normal Form (3NF)
+
+**Rule**: Must be in 2NF and **no transitive dependencies** (non-key attributes cannot depend on other non-key attributes).
+
+### Review of Potential Issues:
+- `users`: No transitive dependencies.
+- `properties`: `host_id` is a foreign key; all other attributes depend directly on `property_id`.
+- `bookings`: Attributes like `total_price`, `start_date`, `end_date`, and `status` depend directly on `booking_id`.
+- `payments`: All fields depend directly on `payment_id`.
+- `reviews`: All fields depend on `review_id`.
+- `messages`: No transitive dependency between `message_body`, `sender_id`, `recipient_id`.
+
+✅ **Result**: The schema is in **3NF**. No transitive dependencies were found.
+
+---
+
+## 🧹 Final Assessment
+
+| Table       | 1NF | 2NF | 3NF |
+|-------------|-----|-----|-----|
+| `users`     | ✅  | ✅  | ✅  |
+| `properties`| ✅  | ✅  | ✅  |
+| `bookings`  | ✅  | ✅  | ✅  |
+| `payments`  | ✅  | ✅  | ✅  |
+| `reviews`   | ✅  | ✅  | ✅  |
+| `messages`  | ✅  | ✅  | ✅  |
+
+---
+
+## 📝 Conclusion
+
+The current database schema satisfies the requirements of **Third Normal Form (3NF)**. It is free of:
+- Repeating groups (1NF)
+- Partial dependencies (2NF)
+- Transitive dependencies (3NF)
+
+This design supports scalability, efficiency, and data integrity across the platform.
+
 
 ## 📄 DBML Code
 
