@@ -36,3 +36,24 @@ Write both correlated and non-correlated subqueries to solve analytical tasks.
 ### File
 - SQL queries are stored in: `database-adv-script/subqueries.sql`
 
+
+
+
+## Task 2: Apply Aggregations and Window Functions
+
+### Objective
+Analyze data using SQL aggregate functions and window functions.
+
+### ✅ Queries Included
+
+1. **Aggregate Function – COUNT with GROUP BY**
+   - Calculates the total number of bookings made by each user.
+   - Uses a LEFT JOIN to include users with zero bookings.
+
+2. **Window Function – RANK**
+   - Ranks all properties based on how many bookings each has received.
+   - Uses a subquery to calculate booking totals before applying RANK.
+
+### File
+- SQL queries are stored in: `database-adv-script/aggregations_and_window_functions.sql`
+
