@@ -6,7 +6,6 @@
 -- ========================================================================
 -- PART 1: Performance Measurement BEFORE Indexing
 -- These queries are run before creating the indexes to show baseline performance.
--- IMPORTANT: Ensure your tables are populated with sufficient data before running this part.
 -- ========================================================================
 
 -- Query to test: Find bookings made by a specific user
